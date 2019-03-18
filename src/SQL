@@ -1,0 +1,25 @@
+CREATE DATABASE AddressList;
+USE AddressList;
+CREATE TABLE User(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(20),
+	password VARCHAR(20)
+);
+INSERT INTO User VALUES (0,'Andy','123'),(0,'tom','123'),(0,'root','root');
+CREATE TABLE AddressList(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(20),
+	sex CHAR(2),
+	telephoneNumber VARCHAR(20),
+	address VARCHAR(20)
+);
+INSERT INTO AddressList VALUES (null,'Andy','0',17852035293,'浙江台州'),
+							   (null,'Emma','1',13812345861,'浙江嘉兴'),
+						       (null,'Mia','1',17823035292,'浙江湖州'),
+							   (null,'Bob','0',17852035299,'浙江杭州'),
+							   (null,'James','0',15938510103,'浙江绍兴'),
+							   (null,'Ella','1',15852012297,'浙江温州'),
+							   (null,'Alexander','0',12238340103,'浙江丽水'),
+							   (null,'Victoria','1',14452043297,'浙江舟山'),
+							   (null,'Russel','1',19852012297,'浙江金华');
+SELECT * FROM AddressList;
