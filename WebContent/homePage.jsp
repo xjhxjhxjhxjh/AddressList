@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html"; charset=UTF-8">
 <title>通讯录主页</title>
 <!-- 创建视口 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,7 +28,7 @@
 						联系人名字：<input type="text" name="name" value="${name}">
 					       联系人分组：<input type="text" name="ugroup" value="${ugroup}"> <input type="submit" value="搜索">
 					</form>
-					<a href="${pageContext.request.contextPath}/homePage?method=findAll">查询联系人</a>
+					<a href="${pageContext.request.contextPath}/homePage?method=findAll&pageNumber=1">查询联系人</a>
 					<a href="${pageContext.request.contextPath}/homePage?method=addUI">添加联系人</a>
 				</td>
 				<td colspan="1"><input type="button" value="删除勾选" id="btn"></td>
@@ -44,16 +44,16 @@
 				<th width="8%">联系人分组</th>
 				<th width="8%" align="center">操作</th>
 			</tr>
-			<c:if test="${empty list}">
+			<c:if test="${empty page.list}">
 				<tr>
 					<td colspan="9" align="center">暂无联系人</td>
 				</tr>
 			</c:if>
-			<c:if test="${not empty list}">
+			<c:if test="${not empty page.list}">
 				<form id="formId"
 					action="${pageContext.request.contextPath}/homePage" method="post">
 					<input type="hidden" name="method" value="batchDelete">
-					<c:forEach items="${list}" var="contact">
+					<c:forEach items="${page.list}" var="contact">
 						<tr height="70px">
 							<td align="center"><input type="checkbox" name="id" value="${contact.id}"></td>
 							<td align="center">${contact.id}</td>
@@ -72,6 +72,27 @@
 				</form>
 			</c:if>
 		</table>
+ 	 <center>
+            <c:if test="${page.pageNumber!=1}">
+                <a href="${pageContext.request.contextPath}/homePage?method=findAll&pageNumber=${page.pageNumber-1}">[上一页]</a>
+            </c:if>
+        
+            <c:forEach begin="1" end="${page.pageSumSize}" step="1" var="n">
+                <c:if test="${page.pageNumber==n}">
+                    ${n}
+                </c:if>
+        
+                <c:if test="${page.pageNumber!=n}">
+                    <a href="${pageContext.request.contextPath}/homePage?method=findAll&pageNumber=${n}">${n}</a>
+                </c:if>
+        
+            </c:forEach>
+        
+            <c:if test="${page.pageNumber!=page.pageSumSize}">
+                <a href="${pageContext.request.contextPath}/homePage?method=findAll&pageNumber=${page.pageNumber+1}">[下一页]</a>
+            </c:if>
+                      第${page.pageNumber}页/共${page.pageSumSize}页
+        </center> 
 	</div>
 </body>
 <script type="text/javascript">

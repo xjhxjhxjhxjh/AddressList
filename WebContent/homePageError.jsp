@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>error</title>
 </head>
 <body>
     <h1 style="color: red" align="center">${msg}</h1>

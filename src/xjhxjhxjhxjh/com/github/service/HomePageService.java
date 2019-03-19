@@ -5,6 +5,7 @@ import java.util.List;
 
 import xjhxjhxjhxjh.com.github.dao.HomePageDao;
 import xjhxjhxjhxjh.com.github.domain.Contact;
+import xjhxjhxjhxjh.com.github.domain.Page;
 import xjhxjhxjhxjh.com.github.utils.ConnectionManager;
 
 public class HomePageService {
@@ -98,6 +99,25 @@ public class HomePageService {
     public List<Contact> search(String name, String ugroup, String username) throws SQLException {
         HomePageDao homePageDao = new HomePageDao();
         return homePageDao.search(name,ugroup,username);
+    }
+    /**
+     * 分页查询
+     * @param pageNumber
+     * @param pageSize
+     * @param username
+     * @return
+     * @throws SQLException 
+     */
+    public Page<Contact> getPage(int pageNumber, int pageSize, String username) throws SQLException {
+        HomePageDao homePageDao = new HomePageDao();
+        Page<Contact> page = new Page<Contact>(pageSize,pageNumber);
+        //获取总条数
+        int count = homePageDao.getCount(username);
+        page.setPageSumNumber(count);
+        //获取每页显示的内容
+        List<Contact> list= homePageDao.getList(page,username);
+        page.setList(list);
+        return page;
     }
 
 }

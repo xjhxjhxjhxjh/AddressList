@@ -1,6 +1,7 @@
 package xjhxjhxjhxjh.com.github.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.beanutils.BeanUtils;
 
 import xjhxjhxjhxjh.com.github.domain.Contact;
+import xjhxjhxjhxjh.com.github.domain.Page;
 import xjhxjhxjhxjh.com.github.service.HomePageService;
 
 public class HomePageServlet extends HttpServlet {
@@ -45,6 +47,7 @@ public class HomePageServlet extends HttpServlet {
             search(request,response,username);
         }
     }
+  
     /**
      * 关键词搜索
      * @param request
@@ -217,21 +220,22 @@ public class HomePageServlet extends HttpServlet {
      */
     private void findAll(HttpServletRequest request, HttpServletResponse response, String username) throws ServletException, IOException {
         try {
-            //创建contactService
+            //封装Page
+            int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+            int pageSize = 4;
+            //创建并调用方法
             HomePageService homePageService = new HomePageService();
-            //调用方法
-            List<Contact> list = homePageService.findAll(username);
+            Page<Contact> page = homePageService.getPage(pageNumber,pageSize,username);
             //将0和1转换为男女
-            for (Contact contact : list) {
+            for (Contact contact : page.getList()) {
                 if (contact.getSex().equals("0")) {
                     contact.setSex("男");
                 }else {
                     contact.setSex("女");
                 }
             }
-            //把list集合放入request域对象中
-            request.setAttribute("list", list);
-            //请求转发到homePage.jsp
+            // 请求转发到homePage.jsp
+            request.setAttribute("page", page);
             request.getRequestDispatcher("/homePage.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
