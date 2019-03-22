@@ -15,39 +15,40 @@ import org.apache.commons.beanutils.BeanUtils;
 import xjhxjhxjhxjh.com.github.domain.Contact;
 import xjhxjhxjhxjh.com.github.domain.Page;
 import xjhxjhxjhxjh.com.github.service.HomePageService;
+import xjhxjhxjhxjh.com.github.utils.BaseServlet;
 
-public class HomePageServlet extends HttpServlet {
+public class HomePageServlet extends BaseServlet {
 
     private static final long serialVersionUID = 1L;
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // 解决乱码
-//        request.setCharacterEncoding("utf-8");
-        // 从Session中获取用户名
-        String username = (String) request.getSession().getAttribute("username");
-        // 获取method
-        String method = request.getParameter("method");
-        // 根据method判断执行
-        if ("findAll".equals(method)) {
-            findAll(request, response, username);
-        } else if ("addUI".equals(method)) {
-            addUI(request, response);
-        } else if ("add".equals(method)) {
-            add(request, response, username);
-        } else if ("delete".equals(method)) {
-            delete(request, response, username);
-        } else if ("batchDelete".equals(method)) {
-            batchDelete(request, response, username);
-        } else if ("edit".equals(method)) {
-            edit(request, response, username);
-        } else if ("update".equals(method)) {
-            update(request, response, username);
-        } else if ("search".equals(method)) {
-            search(request, response, username);
-        }
-    }
+//
+//    @Override
+//    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException {
+//        // 解决乱码
+////        request.setCharacterEncoding("utf-8");
+//        // 从Session中获取用户名
+////        String username = (String) request.getSession().getAttribute("username");
+////        // 获取method
+////        String method = request.getParameter("method");
+////        // 根据method判断执行
+////        if ("findAll".equals(method)) {
+////            findAll(request, response, username);
+////        } else if ("addUI".equals(method)) {
+////            addUI(request, response);
+////        } else if ("add".equals(method)) {
+////            add(request, response, username);
+////        } else if ("delete".equals(method)) {
+////            delete(request, response, username);
+////        } else if ("batchDelete".equals(method)) {
+////            batchDelete(request, response, username);
+////        } else if ("edit".equals(method)) {
+////            edit(request, response, username);
+////        } else if ("update".equals(method)) {
+////            update(request, response, username);
+////        } else if ("search".equals(method)) {
+////            search(request, response, username);
+////        }
+//    }
 
     /**
      * 关键词搜索
@@ -58,7 +59,7 @@ public class HomePageServlet extends HttpServlet {
      * @throws IOException
      * @throws ServletException
      */
-    private void search(HttpServletRequest request, HttpServletResponse response, String username)
+    public String search(HttpServletRequest request, HttpServletResponse response, String username)
             throws ServletException, IOException {
         try {
             // 获取前台录入的关键字
@@ -70,11 +71,11 @@ public class HomePageServlet extends HttpServlet {
             // 把list集合放入request域对象中
             request.setAttribute("list", list);
             // 请求转发到查询所有商品的链接上
-            request.getRequestDispatcher("/homePage.jsp").forward(request, response);
+            return "/homePage.jsp";
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("msg", "查询失败");
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
+            return "/error.jsp";
         }
     }
 
@@ -87,7 +88,7 @@ public class HomePageServlet extends HttpServlet {
      * @throws IOException
      * @throws ServletException
      */
-    private void update(HttpServletRequest request, HttpServletResponse response, String username)
+    public String update(HttpServletRequest request, HttpServletResponse response, String username)
             throws ServletException, IOException {
         try {
             // 获取前台录入的信息
@@ -100,11 +101,11 @@ public class HomePageServlet extends HttpServlet {
             HomePageService homePageService = new HomePageService();
             homePageService.update(contact, username);
             // 请求转发到查询所有商品的链接上
-            request.getRequestDispatcher("/homePage?method=findAll").forward(request, response);
+            return "/homePage?method=findAll";
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("msg", "编辑失败");
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
+            return "/error.jsp";
         }
     }
 
@@ -118,7 +119,7 @@ public class HomePageServlet extends HttpServlet {
      * @throws IOException
      * @throws ServletException
      */
-    private void edit(HttpServletRequest request, HttpServletResponse response, String username)
+    public String edit(HttpServletRequest request, HttpServletResponse response, String username)
             throws ServletException, IOException {
         try {
             // 获取id
@@ -129,11 +130,11 @@ public class HomePageServlet extends HttpServlet {
             // 把联系人放入request中
             request.setAttribute("contact", contact);
             // 请求转发到edit.jsp
-            request.getRequestDispatcher("/edit.jsp").forward(request, response);
+            return "/edit.jsp";
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("msg", "编辑失败");
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
+            return "/error.jsp";
         }
     }
 
@@ -146,7 +147,7 @@ public class HomePageServlet extends HttpServlet {
      * @throws IOException
      * @throws ServletException
      */
-    private void batchDelete(HttpServletRequest request, HttpServletResponse response, String username)
+    public String batchDelete(HttpServletRequest request, HttpServletResponse response, String username)
             throws ServletException, IOException {
         try {
             // 获取ids
@@ -155,11 +156,11 @@ public class HomePageServlet extends HttpServlet {
             HomePageService homePageService = new HomePageService();
             homePageService.batchDelete(ids, username);
             // 请求转发到查询所有的链接上
-            request.getRequestDispatcher("/homePage?method=findAll").forward(request, response);
+            return "/homePage?method=findAll";
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("msg", "批量删除联系人出现错误");
-            request.getRequestDispatcher("/HomePageError.jsp").forward(request, response);
+            return "/HomePageError.jsp";
         }
     }
 
@@ -172,7 +173,7 @@ public class HomePageServlet extends HttpServlet {
      * @throws IOException
      * @throws ServletException
      */
-    private void delete(HttpServletRequest request, HttpServletResponse response, String username)
+    public String delete(HttpServletRequest request, HttpServletResponse response, String username)
             throws ServletException, IOException {
         try {
             // 获取id
@@ -181,11 +182,11 @@ public class HomePageServlet extends HttpServlet {
             HomePageService homePageService = new HomePageService();
             homePageService.delete(id, username);
             // 请求转发到查询所有的链接上
-            request.getRequestDispatcher("/homePage?method=findAll").forward(request, response);
+            return "/homePage?method=findAll";
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("msg", "删除联系人出现错误");
-            request.getRequestDispatcher("/HomePageError.jsp").forward(request, response);
+            return "/HomePageError.jsp";
         }
     }
 
@@ -198,7 +199,7 @@ public class HomePageServlet extends HttpServlet {
      * @throws IOException
      * @throws ServletException
      */
-    private void add(HttpServletRequest request, HttpServletResponse response, String username)
+    public String add(HttpServletRequest request, HttpServletResponse response, String username)
             throws ServletException, IOException {
         try {
             // 获取前台数据
@@ -211,11 +212,11 @@ public class HomePageServlet extends HttpServlet {
             HomePageService homePageService = new HomePageService();
             homePageService.add(contact, username);
             // 请求转发到查询链接
-            request.getRequestDispatcher("/homePage?method=findAll").forward(request, response);
+            return "/homePage?method=findAll";
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("msg", "添加联系人出现错误");
-            request.getRequestDispatcher("/HomePageError.jsp").forward(request, response);
+            return "/HomePageError.jsp";
         }
     }
 
@@ -227,8 +228,8 @@ public class HomePageServlet extends HttpServlet {
      * @throws IOException
      * @throws ServletException
      */
-    private void addUI(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/add.jsp").forward(request, response);
+    public String addUI(HttpServletRequest request, HttpServletResponse response, String username) throws ServletException, IOException {
+        return "/add.jsp";
     }
 
     /**
@@ -240,7 +241,7 @@ public class HomePageServlet extends HttpServlet {
      * @throws IOException
      * @throws ServletException
      */
-    private void findAll(HttpServletRequest request, HttpServletResponse response, String username)
+    public String findAll(HttpServletRequest request, HttpServletResponse response, String username)
             throws ServletException, IOException {
         try {
             // 封装Page
@@ -259,11 +260,11 @@ public class HomePageServlet extends HttpServlet {
             }
             // 请求转发到homePage.jsp
             request.setAttribute("page", page);
-            request.getRequestDispatcher("/homePage.jsp").forward(request, response);
+            return "/homePage.jsp";
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("msg", "查询联系人出现错误");
-            request.getRequestDispatcher("/HomePageError.jsp").forward(request, response);
+            return "/HomePageError.jsp";
         }
     }
 

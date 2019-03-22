@@ -23,6 +23,7 @@
         <form action="${pageContext.request.contextPath}/homePage" method="post" id="formId">
             <table width="60%" height="60%"  align="center">
                     <input type="hidden" name="method" value="add">
+                    <input type="hidden" name="pageNumber" value="1">
                     <tr align="center">
                       <td>联系人姓名：</td>
                       <td><input type="text" name="name"></td>

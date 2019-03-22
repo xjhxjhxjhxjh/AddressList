@@ -26,7 +26,8 @@
 						method="post">
 						<input type="hidden" name="method" value="search"> 
 						联系人名字：<input type="text" name="name" value="${name}">
-					       联系人分组：<input type="text" name="ugroup" value="${ugroup}"> <input type="submit" value="搜索">
+					       联系人分组：<input type="text" name="ugroup" value="${ugroup}"> 
+					    <input type="submit" value="搜索">
 					</form>
 					<a href="${pageContext.request.contextPath}/homePage?method=findAll&pageNumber=1">查询联系人</a>
 					<a href="${pageContext.request.contextPath}/homePage?method=addUI">添加联系人</a>
@@ -53,6 +54,7 @@
 				<form id="formId"
 					action="${pageContext.request.contextPath}/homePage" method="post">
 					<input type="hidden" name="method" value="batchDelete">
+					<input type="hidden" name="pageNumber" value="1">
 					<c:forEach items="${page.list}" var="contact">
 						<tr height="70px">
 							<td align="center"><input type="checkbox" name="id" value="${contact.id}"></td>

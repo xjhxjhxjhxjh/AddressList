@@ -25,6 +25,7 @@
 			<div style="font-size: 2.75rem;" align="center">登陆通讯录</div>
 			<form class="form-horizontal"
 				action="${pageContext.request.contextPath}/logIn" method="post">
+				<input type="hidden" name="pageNumber" value="1">
 				<div class="form-group">
 					<label for="username" class="col-sm-2 control-label">用户名</label>
 					<div class="col-sm-6">

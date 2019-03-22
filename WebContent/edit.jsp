@@ -24,6 +24,7 @@
 			<input type="hidden" name="method" value="update"> 
 			<input type="hidden" name="id" value="${contact.id}"> 
 			<table width="60%" height="60%"  align="center">
+			<input type="hidden" name="pageNumber" value="1">
                     <tr align="center">
                       <td >联系人姓名：</td>
                       <td><input type="text" name="name" value="${contact.name}"></td>
