@@ -40,19 +40,19 @@ public class VerificationCodeServlet extends HttpServlet {
         // 输出验证码内容
         graphics.setColor(Color.RED);
         graphics.setFont(new Font("宋体", Font.BOLD, 22));
-        
+
         // 随机输出4个字符
         String s = "ABCDEFGHGKLMNPQRSTUVWXYZ23456789";
         Random random = new Random();
-        
+
         // session中要用到
         String msg = "";
-        
+
         int x = 5;
         for (int i = 0; i < charNum; i++) {
             int index = random.nextInt(32);
             String content = String.valueOf(s.charAt(index));
-            
+
             msg += content;
             graphics.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
             graphics.drawString(content, x, 22);

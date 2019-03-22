@@ -1,6 +1,8 @@
 package xjhxjhxjhxjh.com.github.domain;
+
 /**
  * 联系人Bean
+ * 
  * @author xjhxjhxjh
  *
  */
@@ -12,8 +14,10 @@ public class Contact {
     private String address;
     private String qqNumber;
     private String ugroup;
-    
-    public Contact() {}
+
+    public Contact() {
+    }
+
     public Contact(int id, String name, String sex, String telephoneNumber, String address, String qqNumber,
             String ugroup) {
         super();
@@ -25,53 +29,69 @@ public class Contact {
         this.qqNumber = qqNumber;
         this.ugroup = ugroup;
     }
+
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public String getSex() {
         return sex;
     }
+
     public void setSex(String sex) {
         this.sex = sex;
     }
+
     public String getTelephoneNumber() {
         return telephoneNumber;
     }
+
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
+
     public String getAddress() {
         return address;
     }
+
     public void setAddress(String address) {
         this.address = address;
     }
+
     public String getqqNumber() {
         return qqNumber;
     }
+
     public void setqqNumber(String qqNumber) {
         this.qqNumber = qqNumber;
     }
+
     public String getUgroup() {
         return ugroup;
     }
+
     public void setUgroup(String ugroup) {
         this.ugroup = ugroup;
     }
+
     @Override
     public String toString() {
         return "Contact [id=" + id + ", name=" + name + ", sex=" + sex + ", telephoneNumber=" + telephoneNumber
                 + ", address=" + address + ", qqNumber=" + qqNumber + ", ugroup=" + ugroup + "]";
     }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -85,6 +105,7 @@ public class Contact {
         result = prime * result + ((ugroup == null) ? 0 : ugroup.hashCode());
         return result;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -128,5 +149,5 @@ public class Contact {
             return false;
         return true;
     }
-    
+
 }
