@@ -40,8 +40,10 @@ public class DynamicProxySolveMessyCode implements javax.servlet.Filter {
 
         final HttpServletRequest request = (HttpServletRequest) r;
         // 动态代理
-        HttpServletRequest hsr = (HttpServletRequest) Proxy.newProxyInstance(request.getClass().getClassLoader(),
-                request.getClass().getInterfaces(), new InvocationHandler() {
+        HttpServletRequest hsr = (HttpServletRequest) Proxy.newProxyInstance(
+                request.getClass().getClassLoader(),
+                request.getClass().getInterfaces(), 
+                new InvocationHandler() {
 
                     @Override
                     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {

@@ -16,10 +16,10 @@ public class BaseServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // 通过字节码对象获取到类指定的方法
-            Class<? extends BaseServlet> class1 = this.getClass();
             // 从Session中获取用户名
             String username = (String) request.getSession().getAttribute("username");
+            // 通过字节码对象获取到类指定的方法
+            Class<? extends BaseServlet> class1 = this.getClass();
             // 获取方法并执行
             Method method = class1.getMethod(request.getParameter("method"), HttpServletRequest.class,HttpServletResponse.class,String.class);
             String value = (String) method.invoke(class1.newInstance(), request, response,username);

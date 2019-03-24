@@ -58,4 +58,21 @@
     <servlet-name>BaseServlet</servlet-name>
     <url-pattern>/BaseServlet</url-pattern>
   </servlet-mapping>
+  <filter>
+    <display-name>PermissionFilter</display-name>
+    <filter-name>PermissionFilter</filter-name>
+    <filter-class>xjhxjhxjhxjh.com.github.filter.PermissionFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>PermissionFilter</filter-name>
+    <url-pattern>/add.jsp</url-pattern>
+  </filter-mapping>
+    <filter-mapping>
+    <filter-name>PermissionFilter</filter-name>
+    <url-pattern>/edit.jsp</url-pattern>
+  </filter-mapping>
+    <filter-mapping>
+    <filter-name>PermissionFilter</filter-name>
+    <url-pattern>/homePage.jsp</url-pattern>
+  </filter-mapping>
 </web-app>
